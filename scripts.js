@@ -26,22 +26,22 @@ function convertNumber() {
 function performOperation() {
     switch (operator) {
         case "+":
-            currentNumber = add(currentNumber, newNumber);
+            currentNumber = add(currentNumber, parseInt(newNumber));
             newNumber = "";
             ongoing = true;
             break;
         case "-":
-            currentNumber = subtract(currentNumber, newNumber);
+            currentNumber = subtract(currentNumber, parseInt(newNumber));
             newNumber = "";
             ongoing = true;
             break;
         case "*":
-            currentNumber = multiply(currentNumber, newNumber);
+            currentNumber = multiply(currentNumber, parseInt(newNumber));
             newNumber = "";
             ongoing = true;
             break;
         case "/":
-            currentNumber = divide(currentNumber, newNumber);
+            currentNumber = divide(currentNumber, parseInt(newNumber));
             newNumber = "";
             ongoing = true;
             break;
