@@ -59,6 +59,10 @@ body {
     background-color: slategray;
 }
 
+#decimal {
+    background-color: slategray;
+}
+
 .operatorButtons {
     background-color: cornflowerblue;
 }

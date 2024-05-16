@@ -22,8 +22,10 @@ function convertNumber(string) {
 }
 
 function transferNumber() {
-    currentNumber = convertNumber(newNumber);
-    newNumber = "";
+    if (newNumber !== "") {
+        currentNumber = convertNumber(newNumber);
+        newNumber = "";
+    }
     ongoing = true;
 }
 
@@ -104,18 +106,23 @@ contingency.appendChild(contingencyButton);
 const numberButtons = document.querySelectorAll(".numberButtons");
 numberButtons.forEach(button => {
     button.addEventListener("click", () => {
-        if(button.id !== "decimal") {
+        newNumber += button.id;
+        if(ongoing) {
             displayString += button.id;
-            newNumber += button.id;
-            display.textContent = displayString;
         } else {
-            if (!newNumber.includes(".")) {
-                displayString += ".";
-                newNumber += ".";
-                display.textContent = displayString;
-            } 
+            displayString = newNumber;
         }
+        display.textContent = displayString;
     });
+});
+
+const decimalButton = document.querySelector("#decimal");
+decimalButton.addEventListener("click", () => {
+    if (!newNumber.includes(".")) {
+        displayString += ".";
+        newNumber += ".";
+        display.textContent = displayString;
+    }
 });
 
 const operatorButtons = document.querySelectorAll(".operatorButtons");
@@ -141,8 +148,8 @@ operatorButtons.forEach(button => {
                 break;
             case "equals":
                 operator = "";
+                newNumber = "";
                 ongoing = false;
-                newNumber = currentNumber;
                 break;
             default:
                 console.error("Failed to read id of operator button");
