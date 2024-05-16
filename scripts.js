@@ -12,7 +12,7 @@ function multiply(x, y) {
 
 function divide(x, y) {
     if (y === 0) {
-
+        return "*/0";
     }
     return x / y;
 }
@@ -53,7 +53,7 @@ function performOperation() {
 
 function clearCalculator() {
     currentNumber = 0;
-    newNumber = 0;
+    newNumber = "";
     ongoing = false;
     operator = "";
     displayString = "";
@@ -66,11 +66,33 @@ let ongoing = false;
 let operator = "";
 let displayString = "";
 
+const mainContainer = document.querySelector(".mainContainer");
+
+const calculator = document.querySelector(".calculator");
+
 const display = document.querySelector(".display");
 display.textContent = displayString;
 
 const clear = document.querySelector("#clear");
 clear.addEventListener("click", clearCalculator);
+
+const contingency = document.createElement("div");
+contingency.setAttribute("height", "50vh");
+contingency.setAttribute("flex-direction", "column");
+const contingencyImage = document.createElement("img");
+contingencyImage.src = "img/explosion.svg";
+const contingencyText = document.createElement("h1");
+contingencyText.textContent = "You did a bad thing.";
+const contingencyButton = document.createElement("button");
+contingencyButton.classList.add("contingencyButton");
+contingencyButton.textContent = "Click to Reset";
+contingencyButton.addEventListener("click", () => {
+    mainContainer.removeChild(contingency);
+    mainContainer.appendChild(calculator);
+});
+contingency.appendChild(contingencyImage);
+contingency.appendChild(contingencyText);
+contingency.appendChild(contingencyButton);
 
 const numberButtons = document.querySelectorAll(".numberButtons");
 numberButtons.forEach(button => {
@@ -115,8 +137,15 @@ operatorButtons.forEach(button => {
                 default:
                     console.error("Failed to read id of operator button");
             }
-            displayString = currentNumber + operator;
-            display.textContent = displayString;
+            if (currentNumber !== "*/0") {
+                displayString = currentNumber + operator;
+                display.textContent = displayString;
+            } else {
+                clearCalculator();
+                mainContainer.removeChild(calculator);
+                mainContainer.appendChild(contingency);
+            }
+            
         } else {
             transferNumber();
             switch (button.id) {
