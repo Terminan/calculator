@@ -107,7 +107,7 @@ const numberButtons = document.querySelectorAll(".numberButtons");
 numberButtons.forEach(button => {
     button.addEventListener("click", () => {
         newNumber += button.id;
-        if(ongoing) {
+        if (ongoing) {
             displayString += button.id;
         } else {
             displayString = newNumber;
