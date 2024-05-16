@@ -54,3 +54,15 @@ body {
     align-items: center;
     justify-content: center;
 }
+
+.numberButtons {
+    background-color: slategray;
+}
+
+.operatorButtons {
+    background-color: cornflowerblue;
+}
+
+.editButtons {
+    background-color: peru;
+}
