@@ -62,8 +62,24 @@ function clearCalculator() {
     display.textContent = displayString;
 }
 
-function erase() {
+const NUMBERS = "0123456789";
 
+function erase() {
+    if (!(displayString === "")) {
+        if (NUMBERS.includes(displayString.slice(-1))) {
+            if (newNumber === "") {
+                currentNumber = convertNumber(currentNumber.toString().substring(0, currentNumber.toString().length - 1));
+            } else {
+                newNumber = newNumber.substring(0, newNumber.length - 1);
+            }
+        } else {
+            operator = "";
+            ongoing = false;
+        }
+        displayString = displayString.substring(0, displayString.length - 1);
+    }
+    console.log(`currentNumber: ${currentNumber}, newNumber: ${newNumber}`);
+    display.textContent = displayString;
 }
 
 let currentNumber = 0;
@@ -150,6 +166,7 @@ operatorButtons.forEach(button => {
                 operator = "";
                 newNumber = "";
                 ongoing = false;
+                console.log(`currentNumber: ${currentNumber}, newNumber: ${newNumber}`);
                 break;
             default:
                 console.error("Failed to read id of operator button");
