@@ -50,12 +50,13 @@ function performOperation() {
     }
 }
 
-function clear() {
+function clearCalculator() {
     currentNumber = 0;
     newNumber = 0;
     ongoing = false;
     operator = "+";
     displayString = "";
+    display.textContent = displayString;
 }
 
 let currentNumber = 0;
@@ -66,6 +67,9 @@ let displayString = "";
 
 const display = document.querySelector(".display");
 display.textContent = displayString;
+
+const clear = document.querySelector("#clear");
+clear.addEventListener("click", clearCalculator);
 
 const numberButtons = document.querySelectorAll(".numberButtons");
 numberButtons.forEach(button => {
