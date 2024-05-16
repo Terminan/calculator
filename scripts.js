@@ -17,8 +17,12 @@ function divide(x, y) {
     return x / y;
 }
 
-function convertNumber() {
-    currentNumber = parseInt(newNumber);
+function convertNumber(string) {
+    return Number(string);
+}
+
+function transferNumber() {
+    currentNumber = convertNumber(newNumber);
     newNumber = "";
     ongoing = true;
 }
@@ -26,16 +30,16 @@ function convertNumber() {
 function performOperation() {
     switch (operator) {
         case "+":
-            currentNumber = add(currentNumber, parseInt(newNumber));
+            currentNumber = add(currentNumber, convertNumber(newNumber));
             break;
         case "-":
-            currentNumber = subtract(currentNumber, parseInt(newNumber));
+            currentNumber = subtract(currentNumber, convertNumber(newNumber));
             break;
         case "*":
-            currentNumber = multiply(currentNumber, parseInt(newNumber));
+            currentNumber = multiply(currentNumber, convertNumber(newNumber));
             break;
         case "/":
-            currentNumber = divide(currentNumber, parseInt(newNumber));
+            currentNumber = divide(currentNumber, convertNumber(newNumber));
             break;
         default:
             console.error("Failed to read operator");
@@ -68,9 +72,17 @@ clear.addEventListener("click", clearCalculator);
 const numberButtons = document.querySelectorAll(".numberButtons");
 numberButtons.forEach(button => {
     button.addEventListener("click", () => {
-        displayString += button.id;
-        newNumber += button.id;
-        display.textContent = displayString;
+        if(button.id !== "decimal") {
+            displayString += button.id;
+            newNumber += button.id;
+            display.textContent = displayString;
+        } else {
+            if (!newNumber.includes(".")) {
+                displayString += ".";
+                newNumber += ".";
+                display.textContent = displayString;
+            } 
+        }
     });
 });
 
@@ -103,7 +115,7 @@ operatorButtons.forEach(button => {
             displayString = currentNumber + operator;
             display.textContent = displayString;
         } else {
-            convertNumber();
+            transferNumber();
             switch (button.id) {
                 case "add":
                     operator = "+";
