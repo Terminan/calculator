@@ -60,6 +60,10 @@ function clearCalculator() {
     display.textContent = displayString;
 }
 
+function erase() {
+    
+}
+
 let currentNumber = 0;
 let newNumber = "";
 let ongoing = false;
@@ -75,6 +79,9 @@ display.textContent = displayString;
 
 const clear = document.querySelector("#clear");
 clear.addEventListener("click", clearCalculator);
+
+const backspace = document.querySelector("#backspace");
+backspace.addEventListener("click", erase);
 
 const contingency = document.createElement("div");
 contingency.setAttribute("height", "50vh");
