@@ -44,6 +44,9 @@ function performOperation() {
         default:
             console.error("Failed to read operator");
     }
+    if (currentNumber.toString().includes(".")) {
+        currentNumber = Number(currentNumber.toFixed(5));
+    }
     newNumber = "";
     ongoing = true;
 }
