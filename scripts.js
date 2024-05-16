@@ -61,7 +61,7 @@ function clearCalculator() {
 }
 
 function erase() {
-    
+
 }
 
 let currentNumber = 0;
@@ -123,60 +123,37 @@ operatorButtons.forEach(button => {
     button.addEventListener("click", () => {
         if (ongoing) {
             performOperation();
-            switch (button.id) {
-                case "add":
-                    operator = "+";
-                    break;
-                case "subtract":
-                    operator = "-";
-                    break;
-                case "multiply":
-                    operator = "*";
-                    break;
-                case "divide":
-                    operator = "/";
-                    break;
-                case "equals":
-                    operator = "";
-                    ongoing = false;
-                    newNumber = currentNumber;
-                    break;
-                default:
-                    console.error("Failed to read id of operator button");
-            }
-            if (currentNumber !== "*/0") {
-                displayString = currentNumber + operator;
-                display.textContent = displayString;
-            } else {
-                clearCalculator();
-                mainContainer.removeChild(calculator);
-                mainContainer.appendChild(contingency);
-            }
-            
         } else {
             transferNumber();
-            switch (button.id) {
-                case "add":
-                    operator = "+";
-                    break;
-                case "subtract":
-                    operator = "-";
-                    break;
-                case "multiply":
-                    operator = "*";
-                    break;
-                case "divide":
-                    operator = "/";
-                    break;
-                case "equals":
-                    operator = "";
-                    ongoing = false;
-                    break;
-                default:
-                    console.error("Failed to read id of operator button");
-            }
-            displayString += operator;
+        }
+        switch (button.id) {
+            case "add":
+                operator = "+";
+                break;
+            case "subtract":
+                operator = "-";
+                break;
+            case "multiply":
+                operator = "*";
+                break;
+            case "divide":
+                operator = "/";
+                break;
+            case "equals":
+                operator = "";
+                ongoing = false;
+                newNumber = currentNumber;
+                break;
+            default:
+                console.error("Failed to read id of operator button");
+        }
+        if (currentNumber !== "*/0") {
+            displayString = currentNumber + operator;
             display.textContent = displayString;
+        } else {
+            clearCalculator();
+            mainContainer.removeChild(calculator);
+            mainContainer.appendChild(contingency);
         }
     });
 });
