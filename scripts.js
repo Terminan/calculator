@@ -143,8 +143,17 @@ numberButtons.forEach(button => {
 
 function enterDecimal() {
     if (!newNumber.includes(".")) {
-        displayString += ".";
-        newNumber += ".";
+        if (newNumber === "") {
+            if (ongoing) {
+                displayString += "0.";
+            } else {
+                displayString = "0.";
+            }
+            newNumber = "0.";
+        } else {
+            displayString += ".";
+            newNumber += ".";
+        }
         display.textContent = displayString;
     }
 }
