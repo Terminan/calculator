@@ -168,7 +168,6 @@ function enterOperator(pressedButton) {
             operator = "";
             newNumber = "";
             ongoing = false;
-            console.log(`currentNumber: ${currentNumber}, newNumber: ${newNumber}`);
             break;
         default:
             console.error("Failed to read id of operator button");
@@ -187,3 +186,43 @@ const operatorButtons = document.querySelectorAll(".operatorButtons");
 operatorButtons.forEach(button => {
     button.addEventListener("click", () => enterOperator(button.id));
 });
+
+const OPERATORS = "+-*/=";
+
+function enterKey(e) {
+    if (e.key === "Escape") {
+        clearCalculator();
+    } else if (e.key === "Backspace") {
+        erase();
+    } else if (NUMBERS.includes(e.key)) {
+        enterNumber(e.key);
+    } else if (e.key === ".") {
+        enterDecimal();
+    } else if (OPERATORS.includes(e.key)) {
+        switch (e.key) {
+            case "+":
+                enterOperator("add");
+                break;
+            case "-":
+                enterOperator("subtract");
+                break;
+            case "*":
+                enterOperator("multiply");
+                break;
+            case "/":
+                enterOperator("divide");
+                break;
+            case "=":
+                enterOperator("equals");
+                break;
+            default:
+                console.error("Failed to read id of operator button");
+        }
+    } else if (e.key === "Enter") {
+        enterOperator("equals");
+    } else {
+        console.log(`Non-operable key entered: ${e.key}`);
+    }
+}
+
+const keyboard = window.addEventListener("keydown", enterKey);
