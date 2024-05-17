@@ -119,13 +119,21 @@ contingency.appendChild(contingencyText);
 contingency.appendChild(contingencyButton);
 
 function enterNumber(pressedButton) {
-    newNumber += pressedButton;
+    if (newNumber === "0") {
+        newNumber = pressedButton;
+        if (ongoing) {
+            displayString = displayString.substring(0, displayString.length - 1);
+        }
+    } else {
+        newNumber += pressedButton;
+    }
     if (ongoing) {
         displayString += pressedButton;
     } else {
         displayString = newNumber;
     }
     display.textContent = displayString;
+    console.log(`newNumber: ${newNumber}`);
 }
 
 const numberButtons = document.querySelectorAll(".numberButtons");
