@@ -66,7 +66,7 @@ const NUMBERS = "0123456789";
 
 function erase() {
     if (!(displayString === "")) {
-        if (NUMBERS.includes(displayString.slice(-1))) {
+        if (NUMBERS.includes(displayString.slice(-1)) || displayString.slice(-1) === ".") {
             if (newNumber === "") {
                 currentNumber = convertNumber(currentNumber.toString().substring(0, currentNumber.toString().length - 1));
             } else {
@@ -133,7 +133,6 @@ function enterNumber(pressedButton) {
         displayString = newNumber;
     }
     display.textContent = displayString;
-    console.log(`newNumber: ${newNumber}`);
 }
 
 const numberButtons = document.querySelectorAll(".numberButtons");
