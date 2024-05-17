@@ -78,7 +78,6 @@ function erase() {
         }
         displayString = displayString.substring(0, displayString.length - 1);
     }
-    console.log(`currentNumber: ${currentNumber}, newNumber: ${newNumber}`);
     display.textContent = displayString;
 }
 
