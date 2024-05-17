@@ -119,65 +119,71 @@ contingency.appendChild(contingencyImage);
 contingency.appendChild(contingencyText);
 contingency.appendChild(contingencyButton);
 
+function enterNumber(pressedButton) {
+    newNumber += pressedButton;
+    if (ongoing) {
+        displayString += pressedButton;
+    } else {
+        displayString = newNumber;
+    }
+    display.textContent = displayString;
+}
+
 const numberButtons = document.querySelectorAll(".numberButtons");
 numberButtons.forEach(button => {
-    button.addEventListener("click", () => {
-        newNumber += button.id;
-        if (ongoing) {
-            displayString += button.id;
-        } else {
-            displayString = newNumber;
-        }
-        display.textContent = displayString;
-    });
+    button.addEventListener("click", () => enterNumber(button.id));
 });
 
-const decimalButton = document.querySelector("#decimal");
-decimalButton.addEventListener("click", () => {
+function enterDecimal() {
     if (!newNumber.includes(".")) {
         displayString += ".";
         newNumber += ".";
         display.textContent = displayString;
     }
-});
+}
+
+const decimalButton = document.querySelector("#decimal");
+decimalButton.addEventListener("click", enterDecimal);
+
+function enterOperator(pressedButton) {
+    if (ongoing) {
+        performOperation();
+    } else {
+        transferNumber();
+    }
+    switch (pressedButton) {
+        case "add":
+            operator = "+";
+            break;
+        case "subtract":
+            operator = "-";
+            break;
+        case "multiply":
+            operator = "*";
+            break;
+        case "divide":
+            operator = "/";
+            break;
+        case "equals":
+            operator = "";
+            newNumber = "";
+            ongoing = false;
+            console.log(`currentNumber: ${currentNumber}, newNumber: ${newNumber}`);
+            break;
+        default:
+            console.error("Failed to read id of operator button");
+    }
+    if (currentNumber !== "*/0") {
+        displayString = currentNumber + operator;
+        display.textContent = displayString;
+    } else {
+        clearCalculator();
+        mainContainer.removeChild(calculator);
+        mainContainer.appendChild(contingency);
+    }
+}
 
 const operatorButtons = document.querySelectorAll(".operatorButtons");
 operatorButtons.forEach(button => {
-    button.addEventListener("click", () => {
-        if (ongoing) {
-            performOperation();
-        } else {
-            transferNumber();
-        }
-        switch (button.id) {
-            case "add":
-                operator = "+";
-                break;
-            case "subtract":
-                operator = "-";
-                break;
-            case "multiply":
-                operator = "*";
-                break;
-            case "divide":
-                operator = "/";
-                break;
-            case "equals":
-                operator = "";
-                newNumber = "";
-                ongoing = false;
-                console.log(`currentNumber: ${currentNumber}, newNumber: ${newNumber}`);
-                break;
-            default:
-                console.error("Failed to read id of operator button");
-        }
-        if (currentNumber !== "*/0") {
-            displayString = currentNumber + operator;
-            display.textContent = displayString;
-        } else {
-            clearCalculator();
-            mainContainer.removeChild(calculator);
-            mainContainer.appendChild(contingency);
-        }
-    });
+    button.addEventListener("click", () => enterOperator(button.id));
 });
